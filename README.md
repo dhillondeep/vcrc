@@ -4,9 +4,14 @@
 
 Over the last 10 years, I have used and tweaked Vim. This configuration is the ultimate vimrc (or at least my version of it).
 
+This is a fork from https://github.com/amix/vimrc so, if you want to use that instead, please go to that link!
+This fork customizes original configurations to my needs:
+* Uses Vim Plug as a package manager
+* Removed Syntastic (syntax checker)
+
 There are two versions:
 
-* **The Basic**: If you want something small just copy [basic.vim](https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim) into your ~/.vimrc and you will have a good basic setup
+* **The Basic**: If you want something small just copy [basic.vim](https://github.com/dhillondeep/vimrc/blob/master/vimrcs/basic.vim) into your ~/.vimrc and you will have a good basic setup
 * **The Awesome**: Includes a ton of useful plugins, color schemes, and configurations
 
 I would, of course, recommend using the awesome version.
@@ -16,13 +21,13 @@ I would, of course, recommend using the awesome version.
 ### Install for your own user only
 The awesome version includes a lot of great plugins, configurations and color schemes that make Vim a lot better. To install it simply do following from your terminal:
 
-	git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
+	git clone --depth=1 https://github.com/dhillondeep/vimrc.git ~/.vim_runtime
 	sh ~/.vim_runtime/install_awesome_vimrc.sh
 	
 ### Install for multiple users
 To install for multiple users, the repository needs to be cloned to a location accessible for all the intended users.
 
-	git clone --depth=1 https://github.com/amix/vimrc.git /opt/vim_runtime
+	git clone --depth=1 https://github.com/dhillondeep/vimrc.git /opt/vim_runtime
 	sh ~/.vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime user0 user1 user2
 	# to install for all users with home directories
 	sh ~/.vim_runtime/install_awesome_parameterized.sh /opt/vim_runtime --all
@@ -40,11 +45,11 @@ Some other fonts that Awesome will try to use:
 
 ## How to install the Basic version?
 
-The basic version is just one file and no plugins. Just copy [basic.vim](https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim) and paste it into your vimrc.
+The basic version is just one file and no plugins. Just copy [basic.vim](https://github.com/dhillondeep/vimrc/blob/master/vimrcs/basic.vim) and paste it into your vimrc.
 
 The basic version is useful to install on remote servers where you don't need many plugins, and you don't do many edits.
 
-	git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
+	git clone --depth=1 https://github.com/dhillondeep/vimrc.git ~/.vim_runtime
 	sh ~/.vim_runtime/install_basic_vimrc.sh
 
 
@@ -140,16 +145,51 @@ After you have installed the setup, you can create **~/.vim_runtime/my_configs.v
 	map <leader>ct :cd ~/Desktop/Todoist/todoist<cr>
 	map <leader>cw :cd ~/Desktop/Wedoist/wedoist<cr> 
 
-You can also install your plugins, for instance, via pathogen you can install [vim-rails](https://github.com/tpope/vim-rails):
+You can also install your plugins using [Vim Plug](https://github.com/junegunn/vim-plug)
 
-	cd ~/.vim_runtime
-	git clone git://github.com/tpope/vim-rails.git my_plugins/vim-rails
+    vim ~/.vim_runtime/my_configs.vim
+    
+    # add Plug command for the pluggin
+    Plug 'tpope/vim-rails'
 
+    # after resourcing the file, you can install the plugin by running
+    :PlugInstall
+
+    # you can also use key binding
+    map <leader>pi :PlugInstall<cr>
 
 ## Key Mappings
 
 The [leader](http://learnvimscriptthehardway.stevelosh.com/chapters/06.html#leader) is `,`, so whenever you see `<leader>` it means `,`.
 
+
+### Plugin related mappings
+
+Open [bufexplorer](https://github.com/vim-scripts/bufexplorer.zip) to see and manage the current buffers (`<leader>o`):
+    
+    map <leader>o :BufExplorer<cr>
+
+Open [MRU.vim](https://github.com/vim-scripts/mru.vim) to see the recently open files (`<leader>f`):
+
+    map <leader>f :MRU<CR>
+
+Open [ctrlp.vim](https://github.com/kien/ctrlp.vim) plugin to quickly find a file or a buffer (`<leader>j` or `<ctrl>f`):
+    
+    let g:ctrlp_map = '<c-f>'
+
+[NERD Tree](https://github.com/scrooloose/nerdtree) mappings:
+
+    map <leader>nn :NERDTreeToggle<cr>
+    map <leader>nb :NERDTreeFromBookmark 
+    map <leader>nf :NERDTreeFind<cr>
+
+[goyo.vim](https://github.com/junegunn/goyo.vim) and [vim-zenroom2](https://github.com/amix/vim-zenroom2) lets you only focus on one thing at a time. It removes all the distractions and centers the content. It has a special look when editing Markdown, reStructuredText and textfiles. It only has one mapping. (`<leader>z`)
+
+    map <leader>z :Goyo<cr>
+
+[Vim Plug](https://github.com/junegunn/vim-plug) mappings:
+
+    map <leader>pi :PlugInstall<cr>
 
 ### Normal mode mappings
 

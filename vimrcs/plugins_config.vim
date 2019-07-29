@@ -31,6 +31,10 @@ endfor
 
 call plug#end()
 
+" mappings for installing plugins
+map <leader>pi :PlugInstall<cr>
+
+
 """"""""""""""""""""""""""""""
 " => bufExplorer plugin
 """"""""""""""""""""""""""""""
