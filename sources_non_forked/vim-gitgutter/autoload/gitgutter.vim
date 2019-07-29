@@ -119,8 +119,13 @@ function! gitgutter#setup_maps()
     return
   endif
 
+<<<<<<< HEAD
   if !hasmapto('<Plug>(GitGutterPrevHunk)') && maparg('[c', 'n') ==# ''
     nmap <buffer> [c <Plug>(GitGutterPrevHunk)
+=======
+  if !hasmapto('<Plug>GitGutterPrevHunk') && maparg('[c', 'n') ==# ''
+    nmap <buffer> [c <Plug>GitGutterPrevHunk
+>>>>>>> plugins updated to latest version
   endif
   if !hasmapto('<Plug>(GitGutterNextHunk)') && maparg(']c', 'n') ==# ''
     nmap <buffer> ]c <Plug>(GitGutterNextHunk)

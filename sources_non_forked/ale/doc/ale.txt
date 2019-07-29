@@ -1189,7 +1189,10 @@ g:ale_linter_aliases                                     *g:ale_linter_aliases*
   \   'javascriptreact': ['javascript', 'jsx'],
   \   'plaintex': 'tex',
   \   'rmarkdown': 'r',
+<<<<<<< HEAD
   \   'rmd': 'r',
+=======
+>>>>>>> plugins updated to latest version
   \   'systemverilog': 'verilog',
   \   'typescriptreact': ['typescript', 'tsx'],
   \   'verilog_systemverilog': ['verilog_systemverilog', 'verilog'],
@@ -2513,7 +2516,10 @@ documented in additional help files.
     puppet-languageserver.................|ale-puppet-languageserver|
   purescript..............................|ale-purescript-options|
     purescript-language-server............|ale-purescript-language-server|
+<<<<<<< HEAD
     purty.................................|ale-purescript-purty|
+=======
+>>>>>>> plugins updated to latest version
   pyrex (cython)..........................|ale-pyrex-options|
     cython................................|ale-pyrex-cython|
   python..................................|ale-python-options|

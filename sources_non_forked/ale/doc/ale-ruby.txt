@@ -166,7 +166,11 @@ g:ale_ruby_sorbet_options                           *g:ale_ruby_sorbet_options*
   Type: |String|
   Default: `''`
 
+<<<<<<< HEAD
   This variable can be changed to modify flags given to sorbet.
+=======
+  This variable can be change to modify flags given to sorbet.
+>>>>>>> plugins updated to latest version
 
 
 ===============================================================================

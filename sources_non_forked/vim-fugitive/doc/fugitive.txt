@@ -95,7 +95,11 @@ that are part of Git repositories).
 :Git blame ...          scrollbinding is used.  You can also give an arbitrary
                         filename.
 
+<<<<<<< HEAD
                                                 *:Ggrep* *:Gcgrep* *:Git-grep*
+=======
+                                        *fugitive-:Ggrep* *fugitive-:Gcgrep*
+>>>>>>> plugins updated to latest version
 :Ggrep[!] [args]        |:grep|[!] with git-grep as 'grepprg'.
 :Git[!] grep [args]
 

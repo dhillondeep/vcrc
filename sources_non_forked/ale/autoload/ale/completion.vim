@@ -696,7 +696,11 @@ function! ale#completion#GetCompletions(...) abort
 
     let l:prefix = ale#completion#GetPrefix(&filetype, l:line, l:column)
 
+<<<<<<< HEAD
     if l:source is# 'ale-automatic' && empty(l:prefix)
+=======
+    if a:source is# 'ale-automatic' && empty(l:prefix)
+>>>>>>> plugins updated to latest version
         return 0
     endif
 

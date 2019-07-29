@@ -350,7 +350,10 @@ Notes:
   * `puppet-lint`
 * PureScript
   * `purescript-language-server`
+<<<<<<< HEAD
   * `purty`
+=======
+>>>>>>> plugins updated to latest version
 * Python
   * `autopep8`
   * `bandit`

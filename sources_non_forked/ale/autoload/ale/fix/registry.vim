@@ -350,6 +350,7 @@ let s:default_registry = {
 \       'suggested_filetypes': ['python'],
 \       'description': 'Sort Python imports with reorder-python-imports.',
 \   },
+<<<<<<< HEAD
 \   'gnatpp': {
 \       'function': 'ale#fixers#gnatpp#Fix',
 \       'suggested_filetypes': ['ada'],
@@ -365,6 +366,8 @@ let s:default_registry = {
 \       'suggested_filetypes': ['html', 'htmldjango'],
 \       'description': 'Fix HTML files with html-beautify.',
 \   },
+=======
+>>>>>>> plugins updated to latest version
 \}
 
 " Reset the function registry to the default entries.

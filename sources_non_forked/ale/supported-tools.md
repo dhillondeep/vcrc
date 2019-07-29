@@ -252,7 +252,11 @@ formatting.
   * [lacheck](https://www.ctan.org/pkg/lacheck)
   * [proselint](http://proselint.com/)
   * [redpen](http://redpen.cc/)
+<<<<<<< HEAD
   * [texlab](https://texlab.netlify.com)
+=======
+  * [texlab](https://texlab.netlify.com) ([Rust rewrite](https://github.com/latex-lsp/texlab/tree/rust))
+>>>>>>> plugins updated to latest version
   * [textlint](https://textlint.github.io/)
   * [vale](https://github.com/ValeLint/vale)
   * [write-good](https://github.com/btford/write-good)
