@@ -151,6 +151,9 @@ let g:ale_set_highlights = 0
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 
+" => Vim-go
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:go_fmt_command = "goimports"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Git gutter (Git diff)
