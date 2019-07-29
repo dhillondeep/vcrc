@@ -5,6 +5,33 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""
+" => Load Vim Plug paths
+""""""""""""""""""""""""""""""
+let s:vim_runtime = expand('<sfile>:p:h')."/.."
+let s:sources_forked = s:vim_runtime. '/sources_forked'
+let s:sources_non_forked = s:vim_runtime. '/sources_non_forked'
+
+call plug#begin('~/.vim/plugged')
+
+" load all the plugins from forked sources
+let source_forked_paths = globpath(s:sources_forked, '*', 0, 1)
+call filter(source_forked_paths, 'isdirectory(v:val)')
+
+for path in source_forked_paths
+    Plug path
+endfor
+
+" load all the plugins from non forked sources
+let source_non_forked_paths = globpath(s:sources_non_forked, '*', 0, 1)
+call filter(source_non_forked_paths, 'isdirectory(v:val)')
+
+for path in source_non_forked_paths
+    Plug path
+endfor
+
+call plug#end()
+
+""""""""""""""""""""""""""""""
 " => bufExplorer plugin
 """"""""""""""""""""""""""""""
 let g:bufExplorerDefaultHelp=0
