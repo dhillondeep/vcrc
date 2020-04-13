@@ -13,7 +13,7 @@ let s:sources_non_forked = s:vim_runtime. '/sources_non_forked'
 
 call plug#begin('~/.vim/plugged')
 
-" load all the plugins from forked sources
+"load all the plugins from forked sources
 let source_forked_paths = globpath(s:sources_forked, '*', 0, 1)
 call filter(source_forked_paths, 'isdirectory(v:val)')
 
@@ -65,6 +65,11 @@ Plug 'tpope/vim-surround'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'amix/vim-zenroom2'
 
+"custom plugins by user
+try
+source ~/.vim_runtime/my_plugins.vim
+catch
+endtry
 
 call plug#end()
 
