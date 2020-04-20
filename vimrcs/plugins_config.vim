@@ -40,6 +40,8 @@ Plug 'tpope/vim-surround'
 Plug 'dense-analysis/ale'
 Plug 'preservim/nerdcommenter'
 Plug 'itchyny/vim-gitbranch'
+Plug 'joshdick/onedark.vim'
+Plug 'sheerun/vim-polyglot'
 
 "custom plugins by user
 try
