@@ -93,11 +93,11 @@ You can also create **~/.vim_runtime/my_plugins.vim** to add any plugins using [
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'christoomey/vim-tmux-navigator'
 	
-    	# after resourcing the file, you can install the plugin by running
-    	:PlugInstall
+    # after resourcing the file, you can install the plugin by running
+    :PlugInstall
 
-   	 # you can also use key binding
-    	map <leader>pi :PlugInstall<cr>
+    # you can also use key binding
+    map <leader>pi :PlugInstall<cr>
 
 ## Key Mappings
 
