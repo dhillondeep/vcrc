@@ -23,25 +23,23 @@ endfor
 " install plugins
 Plug 'jiangmiao/auto-pairs'
 Plug 'jlanzarotta/bufexplorer'
-Plug 'yuttie/comfortable-motion.vim'
 Plug 'kien/ctrlp.vim'
-Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'
-Plug 'vim-scripts/mayansmoke'
-Plug 'vim-scripts/mru.vim'
+Plug 'maximbaz/lightline-ale'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-scripts/nginx.vim'
 Plug 'amix/open_file_under_cursor.vim'
 Plug 'godlygeek/tabular'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'altercation/vim-colors-solarized'
-Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'plasticboy/vim-markdown'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'vim-scripts/pyte'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'dense-analysis/ale'
+Plug 'preservim/nerdcommenter'
+Plug 'itchyny/vim-gitbranch'
 
 "custom plugins by user
 try
@@ -56,6 +54,16 @@ map <leader>pi :PlugInstall<cr>
 
 
 """"""""""""""""""""""""""""""
+" => Nerd Commenter 
+""""""""""""""""""""""""""""""
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+
+""""""""""""""""""""""""""""""
 " => bufExplorer plugin
 """"""""""""""""""""""""""""""
 let g:bufExplorerDefaultHelp=0
@@ -63,22 +71,6 @@ let g:bufExplorerShowRelativePath=1
 let g:bufExplorerFindActive=1
 let g:bufExplorerSortBy='name'
 map <leader>o :BufExplorer<cr>
-
-
-""""""""""""""""""""""""""""""
-" => MRU plugin
-""""""""""""""""""""""""""""""
-let MRU_Max_Entries = 400
-map <leader>f :MRU<CR>
-
-
-""""""""""""""""""""""""""""""
-" => YankStack
-""""""""""""""""""""""""""""""
-let g:yankstack_yank_keys = ['y', 'd']
-
-nmap <C-p> <Plug>yankstack_substitute_older_paste
-nmap <C-n> <Plug>yankstack_substitute_newer_paste
 
 
 """"""""""""""""""""""""""""""
@@ -92,27 +84,6 @@ map <C-b> :CtrlPBuffer<cr>
 
 let g:ctrlp_max_height = 20
 let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
-
-
-""""""""""""""""""""""""""""""
-" => ZenCoding
-""""""""""""""""""""""""""""""
-" Enable all functions in all modes
-let g:user_zen_mode='a'
-
-
-""""""""""""""""""""""""""""""
-" => snipMate (beside <TAB> support <CTRL-j>)
-""""""""""""""""""""""""""""""
-ino <C-j> <C-r>=snipMate#TriggerSnippet()<cr>
-snor <C-j> <esc>i<right><C-r>=snipMate#TriggerSnippet()<cr>
-
-
-""""""""""""""""""""""""""""""
-" => Vim grep
-""""""""""""""""""""""""""""""
-let Grep_Skip_Dirs = 'RCS CVS SCCS .svn generated'
-set grepprg=/bin/grep\ -nH
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -155,33 +126,33 @@ au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
 " => lightline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'onedark',
       \ 'active': {
-      \   'left': [ ['mode', 'paste'],
-      \             ['fugitive', 'readonly', 'filename', 'modified'] ],
-      \   'right': [ [ 'lineinfo' ], ['percent'] ]
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+      \   'right': [ [ 'lineinfo' ], ['percent'], ['linter_errors'], ['linter_warnings'] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'gitbranch#name'
       \ },
       \ 'component': {
       \   'readonly': '%{&filetype=="help"?"":&readonly?"🔒":""}',
       \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
-      \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
       \ },
       \ 'component_visible_condition': {
       \   'readonly': '(&filetype!="help"&& &readonly)',
       \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
-      \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
       \ },
-      \ 'separator': { 'left': ' ', 'right': ' ' },
-      \ 'subseparator': { 'left': ' ', 'right': ' ' }
+      \ 'component_expand': {
+      \   'linter_warnings': 'lightline#ale#warnings',
+      \   'linter_errors': 'lightline#ale#errors',
+      \ },
+      \ 'component_type': {
+      \   'linter_warnings': 'warning',
+      \   'linter_errors': 'error',
+      \ },
+      \ 'subseparator': { 'left': ' ', 'right': ' ' },
       \ }
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vimroom
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:goyo_width=100
-let g:goyo_margin_top = 2
-let g:goyo_margin_bottom = 2
-nnoremap <silent> <leader>z :Goyo<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -193,14 +164,24 @@ let g:ale_linters = {
 \   'go': ['go', 'golint', 'errcheck']
 \}
 
-nmap <silent> <leader>a <Plug>(ale_next_wrap)
+
+" Change error and warning indicator
+let g:ale_sign_error = '●'
+let g:ale_sign_warning = '.'
 
 " Disabling highlighting
 let g:ale_set_highlights = 0
 
-" Only run linting when saving the file
-let g:ale_lint_on_text_changed = 'never'
+" Lint on save
+let g:ale_lint_on_save = 1
+
+" Disable linting when opening a new file
 let g:ale_lint_on_enter = 0
+
+" Navigate errors
+nmap <silent> <leader>aj :ALENext<cr>
+nmap <silent> <leader>ak :ALEPrevious<cr>
+
 
 " => Vim-go
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
