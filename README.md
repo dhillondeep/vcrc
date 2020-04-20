@@ -88,18 +88,16 @@ After you have installed the setup, you can create **~/.vim_runtime/my_configs.v
 	map <leader>ct :cd ~/Desktop/Todoist/todoist<cr>
 	map <leader>cw :cd ~/Desktop/Wedoist/wedoist<cr> 
 
-You can also install your plugins using [Vim Plug](https://github.com/junegunn/vim-plug)
+You can also create **~/.vim_runtime/my_plugins.vim** to add any plugins using [Vim Plug](https://github.com/junegunn/vim-plug). For instance, my **my_plugins.vim** looks like this:
 
-    vim ~/.vim_runtime/my_configs.vim
-    
-    # add Plug command for the pluggin
-    Plug 'tpope/vim-rails'
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	Plug 'christoomey/vim-tmux-navigator'
+	
+    	# after resourcing the file, you can install the plugin by running
+    	:PlugInstall
 
-    # after resourcing the file, you can install the plugin by running
-    :PlugInstall
-
-    # you can also use key binding
-    map <leader>pi :PlugInstall<cr>
+   	 # you can also use key binding
+    	map <leader>pi :PlugInstall<cr>
 
 ## Key Mappings
 
