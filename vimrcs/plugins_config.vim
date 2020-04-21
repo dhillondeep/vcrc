@@ -12,6 +12,7 @@ call plug#begin('~/.vim/plugged')
 " install general plugins
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf'
+Plug 'jlanzarotta/bufexplorer'
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'scrooloose/nerdtree'
@@ -23,6 +24,7 @@ Plug 'preservim/nerdcommenter'
 Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'dense-analysis/ale'
+Plug 'easymotion/vim-easymotion'
 
 "custom plugins by user
 try
@@ -34,6 +36,18 @@ call plug#end()
 
 " mappings for installing plugins
 map <leader>pi :PlugInstall<cr>
+
+
+""""""""""""""""""""""""""""""
+" => EasyMotion
+""""""""""""""""""""""""""""""
+" Move to line
+map <Leader>L <Plug>(easymotion-bd-jk)
+nmap <Leader>L <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader>W <Plug>(easymotion-bd-w)
+nmap <Leader>W <Plug>(easymotion-overwin-w)
 
 
 """"""""""""""""""""""""""""""
