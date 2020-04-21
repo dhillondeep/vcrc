@@ -7,32 +7,19 @@
 """"""""""""""""""""""""""""""
 " => Load Vim Plug paths
 """"""""""""""""""""""""""""""
-let s:vim_runtime = expand('<sfile>:p:h')."/.."
-let s:sources_forked = s:vim_runtime. '/sources_forked'
-
 call plug#begin('~/.vim/plugged')
 
-"load all the plugins from forked sources
-let source_forked_paths = globpath(s:sources_forked, '*', 0, 1)
-call filter(source_forked_paths, 'isdirectory(v:val)')
-
-for path in source_forked_paths
-    Plug path
-endfor
-
-" install plugins
+" install general plugins
 Plug 'jiangmiao/auto-pairs'
-Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/fzf'
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'scrooloose/nerdtree'
 Plug 'airblade/vim-gitgutter'
-Plug 'plasticboy/vim-markdown'
+Plug 'itchyny/vim-gitbranch'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'preservim/nerdcommenter'
-Plug 'itchyny/vim-gitbranch'
 Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'dense-analysis/ale'
@@ -92,14 +79,6 @@ let g:NERDTreeWinSize=35
 map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark<Space>
 map <leader>nf :NERDTreeFind<cr>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => surround.vim config
-" Annotate strings with gettext 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-vmap Si S(i_<esc>f)
-au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
