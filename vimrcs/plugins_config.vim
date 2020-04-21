@@ -16,7 +16,6 @@ Plug 'jlanzarotta/bufexplorer'
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'scrooloose/nerdtree'
-Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/vim-gitbranch'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -24,8 +23,10 @@ Plug 'preservim/nerdcommenter'
 Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'dense-analysis/ale'
-Plug 'easymotion/vim-easymotion'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'justinmk/vim-sneak'
 Plug 'christoomey/vim-system-copy'
+Plug 'vim-scripts/ReplaceWithRegister'
 
 "custom plugins by user
 try
@@ -47,15 +48,9 @@ let g:system_copy#paste_command='xclip -sel clipboard -o'
 
 
 """"""""""""""""""""""""""""""
-" => EasyMotion
+" => Sneak
 """"""""""""""""""""""""""""""
-" Move to line
-map <Leader>L <Plug>(easymotion-bd-jk)
-nmap <Leader>L <Plug>(easymotion-overwin-line)
-
-" Move to word
-map  <Leader>W <Plug>(easymotion-bd-w)
-nmap <Leader>W <Plug>(easymotion-overwin-w)
+let g:sneak#label = 1
 
 
 """"""""""""""""""""""""""""""
@@ -170,7 +165,10 @@ let g:go_fmt_command = "goimports"
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Git gutter (Git diff)
+" => Coc Git
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:gitgutter_enabled=0
-nnoremap <silent> <leader>td :GitGutterToggle<cr>
+nnoremap <silent> <leader>tg :CocCommand git.toggleGutters<cr>
+
+nmap gs <Plug>(coc-git-chunkinfo)
+" show commit contains current position
+nmap gc <Plug>(coc-git-commit)
