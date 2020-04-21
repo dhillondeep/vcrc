@@ -25,6 +25,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'dense-analysis/ale'
 Plug 'easymotion/vim-easymotion'
+Plug 'christoomey/vim-system-copy'
 
 "custom plugins by user
 try
@@ -36,6 +37,13 @@ call plug#end()
 
 " mappings for installing plugins
 map <leader>pi :PlugInstall<cr>
+
+
+""""""""""""""""""""""""""""""
+" => VimSystemCopy
+""""""""""""""""""""""""""""""
+let g:system_copy#copy_command='xclip -sel clipboard'
+let g:system_copy#paste_command='xclip -sel clipboard -o'
 
 
 """"""""""""""""""""""""""""""
