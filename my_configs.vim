@@ -17,6 +17,7 @@ augroup END
 " mappings for saving and closing vim
 map <Leader>x :x<CR>
 map <Leader>q :q<CR>
+map <Leader>Q :qa<CR>
 
 " remove show mode
 set noshowmode

@@ -23,11 +23,6 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'machakann/vim-highlightedyank'
 Plug 'simeji/winresizer'
 
-" only need for vim and not for nvim
-if !has('nvim') 
-    Plug 'blueyed/vim-diminactive'
-endif
-
 " languages
 Plug 'sheerun/vim-polyglot'
 Plug 'dense-analysis/ale'
@@ -108,7 +103,7 @@ let NERDTreeShowLineNumbers=1
 let NERDTreeShowHidden=1
 let g:NERDTreeWinPos = "left"
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
-let g:NERDTreeWinSize=35
+let g:NERDTreeWinSize=40
 
 map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark<Space>
@@ -316,3 +311,5 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " => Vim-go
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:go_fmt_command = "goimports"
+let g:go_def_mapping_enabled = 0
+let g:go_doc_keywordprg_enabled = 0
