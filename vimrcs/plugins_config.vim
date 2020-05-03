@@ -53,7 +53,7 @@ let g:sneak#label = 1
 """"""""""""""""""""""""""""""
 " => Auto Pair
 """"""""""""""""""""""""""""""
-let g:AutoPairsShortcutToggle = "tp"
+let g:AutoPairsShortcutToggle = "<leader>tp"
 let g:AutoPairsFlyMode = 1
 
 
