@@ -6,7 +6,7 @@ call plug#begin('~/.vim/plugged')
 " general plugins
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf'
-Plug 'jlanzarotta/bufexplorer'
+Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'scrooloose/nerdtree'
@@ -23,17 +23,32 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'machakann/vim-highlightedyank'
 Plug 'simeji/winresizer'
 
+" markdown
+Plug 'JamshedVesuna/vim-markdown-preview'
+
 " languages
 Plug 'sheerun/vim-polyglot'
 Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" go
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+" ruby
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-rails'
 
 call plug#end()
 
 " mappings for installing plugins
 map <leader>pi :PlugInstall<cr>
+
+
+""""""""""""""""""""""""""""""
+" => vim-markdown-preview
+""""""""""""""""""""""""""""""
+let vim_markdown_preview_github=1
+let vim_markdown_preview_toggle=1
 
 
 """"""""""""""""""""""""""""""
@@ -68,19 +83,12 @@ let g:NERDCommentEmptyLines = 1
 
 
 """"""""""""""""""""""""""""""
-" => bufExplorer plugin
-""""""""""""""""""""""""""""""
-let g:bufExplorerDefaultHelp=0
-let g:bufExplorerShowRelativePath=1
-let g:bufExplorerFindActive=1
-let g:bufExplorerSortBy='name'
-map <leader>o :BufExplorer<cr>
-
-
-""""""""""""""""""""""""""""""
 " => fzf
 """"""""""""""""""""""""""""""
-nnoremap <silent> <leader><space> :FZF<CR>
+nnoremap <silent> <leader><space> :Files<CR>
+nnoremap <silent> <leader>m :History<CR>
+nnoremap <silent> <leader>f :BLines<CR>
+nnoremap <silent> <leader>o :Buffers<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -239,10 +247,6 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
-" Formatting selected code.
-xmap <leader>fs  <Plug>(coc-format-selected)
-nmap <leader>fs  <Plug>(coc-format-selected)
-
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -267,12 +271,6 @@ xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
-
-" Use <TAB> for selections ranges.
-" NOTE: Requires 'textDocument/selectionRange' support from the language server.
-" coc-tsserver, coc-python are the examples of servers that support it.
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
