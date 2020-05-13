@@ -38,4 +38,4 @@ if has('nvim')
 endif
  
 " disable search highlighting
-map <Leader>nh :let @/ = ""<CR>
+map <silent> <esc> :let @/ = ""<CR>

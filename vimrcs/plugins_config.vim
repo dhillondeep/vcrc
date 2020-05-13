@@ -85,10 +85,11 @@ let g:NERDCommentEmptyLines = 1
 """"""""""""""""""""""""""""""
 " => fzf
 """"""""""""""""""""""""""""""
-nnoremap <silent> <leader><space> :Files<CR>
-nnoremap <silent> <leader>m :History<CR>
-nnoremap <silent> <leader>f :BLines<CR>
-nnoremap <silent> <leader>o :Buffers<CR>
+nnoremap <silent> <C-space> :GFiles --cached --others --exclude-standard<CR>
+nnoremap <silent> <C-h> :History<CR>
+nnoremap <silent> <C-p> :Rg<CR>
+nnoremap <silent> <C-b> :Buffers<CR>
+nnoremap <silent> <C-f> :Files<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
