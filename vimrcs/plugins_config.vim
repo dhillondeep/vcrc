@@ -8,7 +8,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'maximbaz/lightline-ale'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'itchyny/vim-gitbranch'
@@ -23,12 +22,8 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'machakann/vim-highlightedyank'
 Plug 'simeji/winresizer'
 
-" markdown
-Plug 'JamshedVesuna/vim-markdown-preview'
-
 " languages
 Plug 'sheerun/vim-polyglot'
-Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " go
@@ -40,8 +35,18 @@ Plug 'tpope/vim-rails'
 
 call plug#end()
 
-" mappings for installing plugins
+" install plugins using keybinding
 map <leader>pi :PlugInstall<cr>
+map <leader>pc : PlugClean<cr>
+
+
+""""""""""""""""""""""""""""""
+" => replace-with-register
+""""""""""""""""""""""""""""""
+
+nmap <Leader>r  <Plug>ReplaceWithRegisterOperator
+nmap <Leader>rr <Plug>ReplaceWithRegisterLine
+xmap <Leader>r  <Plug>ReplaceWithRegisterVisual
 
 
 """"""""""""""""""""""""""""""
@@ -83,27 +88,65 @@ let g:NERDCommentEmptyLines = 1
 
 
 """"""""""""""""""""""""""""""
+" => ripgrep
+""""""""""""""""""""""""""""""
+let rg_fmt = 'rg --column --line-number --no-heading --color=always --fixed-strings --ignore-case --hidden --follow '
+
+" uses fzf and ripgrep to perfom search
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   rg_fmt.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+" uses ripgrep to perform search and allows the ability to provide arguments
+function! RipgrepFzf(query, fullscreen, command_format)
+    let command_fmt = 'rg --column --line-number --no-heading --color=always --fixed-strings --ignore-case --hidden --follow %s'
+    let initial_command = printf(command_fmt, a:query)
+    let reload_command = printf(command_fmt, '{q}')
+    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang Rgrep call RipgrepFzf(<q-args>, <bang>0, rg_fmt)
+
+
+""""""""""""""""""""""""""""""
 " => fzf
 """"""""""""""""""""""""""""""
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
+function! FloatingFZF()
+  let buf = nvim_create_buf(v:false, v:true)
+  call setbufvar(buf, '&signcolumn', 'no')
+
+  let height = float2nr(&lines*0.8)
+  let width = float2nr(&columns*0.6)
+  let horizontal = float2nr((&columns - width) / 2)
+  let vertical = float2nr(&lines*0.1)
+
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': vertical,
+        \ 'col': horizontal,
+        \ 'width': width,
+        \ 'height': height,
+        \ 'style': 'minimal'
+        \ }
+
+  call nvim_open_win(buf, v:true, opts)
+endfunction
+
 " fzf mappins that also prevent files to open inside NERD TREE
-nnoremap <silent> <expr> <C-space> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":GFiles --cached --others --exclude-standard\<cr>"
 nnoremap <silent> <expr> <C-a> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":History\<cr>"
-nnoremap <silent> <expr> <C-p> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Rg\<cr>"
+nnoremap <silent> <expr> <C-f> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Rg\<cr>"
+nnoremap <silent> <expr> <C-p> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":BLines\<cr>"
 nnoremap <silent> <expr> <C-b> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Buffers\<cr>"
-nnoremap <silent> <expr> <C-f> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
+nnoremap <silent> <expr> <C-Space> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NerdTree
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" open NerdTree when vim is called with no arguments
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-" open NerdTree when a directory is opened
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-
 " close NerdTree when the only window open is NedTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -112,12 +155,12 @@ let NERDTreeDirArrows = 1
 let NERDTreeShowLineNumbers=1
 let NERDTreeShowHidden=1
 let g:NERDTreeWinPos = "left"
-let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+let NERDTreeIgnore = ['\.pyc$', '__pycache__', '.git']
 let g:NERDTreeWinSize=40
 
-map <leader>nn :NERDTreeToggle<cr>
-map <leader>nb :NERDTreeFromBookmark<Space>
-map <leader>nf :NERDTreeFind<cr>
+map <C-n> :NERDTreeToggle<cr>
+map <leader>b :NERDTreeFromBookmark<Space>
+map <C-t> :NERDTreeFind<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -128,7 +171,7 @@ let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-      \   'right': [ [ 'lineinfo' ], ['percent'], ['linter_errors'], ['linter_warnings'] ]
+      \   'right': [ [ 'lineinfo' ] ]
       \ },
       \ 'component_function': {
       \   'gitbranch': 'gitbranch#name'
@@ -141,43 +184,8 @@ let g:lightline = {
       \   'readonly': '(&filetype!="help"&& &readonly)',
       \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
       \ },
-      \ 'component_expand': {
-      \   'linter_warnings': 'lightline#ale#warnings',
-      \   'linter_errors': 'lightline#ale#errors',
-      \ },
-      \ 'component_type': {
-      \   'linter_warnings': 'warning',
-      \   'linter_errors': 'error',
-      \ },
       \ 'subseparator': { 'left': ' ', 'right': ' ' },
       \ }
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Ale (syntax checker and linter)
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ale_linters = {
-\   'javascript': ['jshint'],
-\   'python': ['flake8'],
-\   'go': ['go', 'golint', 'errcheck']
-\}
-
-" Change error and warning indicator
-let g:ale_sign_error = '●'
-let g:ale_sign_warning = '.'
-
-" Disabling highlighting
-let g:ale_set_highlights = 0
-
-" Lint on save
-let g:ale_lint_on_save = 1
-
-" Disable linting when opening a new file
-let g:ale_lint_on_enter = 0
-
-" Navigate errors
-nmap <silent> <leader>aj :ALENext<cr>
-nmap <silent> <leader>ak :ALEPrevious<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
