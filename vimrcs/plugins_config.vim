@@ -85,11 +85,12 @@ let g:NERDCommentEmptyLines = 1
 """"""""""""""""""""""""""""""
 " => fzf
 """"""""""""""""""""""""""""""
-nnoremap <silent> <C-space> :GFiles --cached --others --exclude-standard<CR>
-nnoremap <silent> <C-h> :History<CR>
-nnoremap <silent> <C-p> :Rg<CR>
-nnoremap <silent> <C-b> :Buffers<CR>
-nnoremap <silent> <C-f> :Files<CR>
+" fzf mappins that also prevent files to open inside NERD TREE
+nnoremap <silent> <expr> <C-space> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":GFiles --cached --others --exclude-standard\<cr>"
+nnoremap <silent> <expr> <C-a> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":History\<cr>"
+nnoremap <silent> <expr> <C-p> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Rg\<cr>"
+nnoremap <silent> <expr> <C-b> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Buffers\<cr>"
+nnoremap <silent> <expr> <C-f> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
