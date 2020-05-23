@@ -1,5 +1,8 @@
 # Vimrc
 
+**This repo is archived! Please check [vim-config](https://github.com/dhillondeep/vim-config)**
+
+
 This is built upon https://github.com/amix/vimrc so, if you want to use that instead, please go to that link!
 This fork customizes original configurations to my needs:
 
